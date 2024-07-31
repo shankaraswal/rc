@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
 function App() {
+  const uploader = Uploader({
+    apiKey: "free",
+  });
+
+  const options = { multi: true };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="App-header">
+        <header>This is App compoennt</header>
+        <UploadButton
+          uploader={uploader}
+          options={options}
+          onComplete={(files) => alert(files.map((x) => x.fileUrl).join("\n"))}
         >
-          Learn React
-        </a>
-      </header>
+          {({ onClick }) => <button onClick={onClick}>Upload a file...</button>}
+        </UploadButton>
+      </div>
     </div>
   );
 }
